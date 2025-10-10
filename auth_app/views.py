@@ -18,8 +18,6 @@ from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponse
-from .models import LoginAttempt
-from datetime import timedelta
 
 # Create your views here.
 
@@ -243,15 +241,6 @@ def signin(request):
         if request.method == "POST":
 
             ip = get_client_ip(request)
-            attempt, created = LoginAttempt.objects.get_or_create(ip_address=ip)
-
-            # Check if blocked
-            if attempt.is_blocked():
-                remaining = (attempt.blocked_until - timezone.now()).seconds // 60
-                return HttpResponse(
-                    f"⚠️ Too many failed attempts! Try again after {remaining} minutes.",
-                    status=403
-                )
 
             email = request.POST['email']
             password = request.POST['password']
@@ -277,6 +266,7 @@ def signin(request):
                         context = {
                             'username':user.username,
                             'otp':otp.otp,
+                            'ip': f"Someone trying to access your account from this address - {ip}. If it's your attempt then apply the OTP.",
                         }
 
                         html_content =  render_to_string(template_name="otp_email.html", context=context)
@@ -301,9 +291,7 @@ def signin(request):
                         return redirect("login_with_otp", username=username)
 
                     else:
-                        attempt.register_failed_attempt()
-                        left = 3 - attempt.attempts if attempt.attempts < 3 else 0
-                        messages.error(request, f"Email or password may be wrong! {left} tries left.")
+                        messages.error(request, f"Email or password may be wrong!")
                         return render(request, "signin.html")
 
 
@@ -402,6 +390,8 @@ def forgot_password(request):
     if request.user.is_authenticated == False:
 
         if request.method == 'POST':
+             
+            ip = get_client_ip(request)
             email = request.POST['email']
             
             if User.objects.filter(email=email).exists():
@@ -413,6 +403,7 @@ def forgot_password(request):
                 context = {
                     'username':user.username,
                     'reset_link':reset_link,
+                    'ip': f"Someone trying to reset your password from this address - {ip}. If it's your attempt then apply the link.",
                 }
 
                 html_content =  render_to_string(template_name="pass_reset_email.html", context=context)

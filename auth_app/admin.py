@@ -31,6 +31,8 @@ class UserAdmin(UserAdmin):
     filter_horizontal = []
 
 
+
+
 # Now register the new UserAdmin...
 admin.site.register(User, UserAdmin)
 admin.site.register(OTP)

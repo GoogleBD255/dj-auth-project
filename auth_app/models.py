@@ -88,28 +88,3 @@ class OTP(models.Model):
 
 
 
-class LoginAttempt(models.Model):
-    ip_address = models.GenericIPAddressField()
-    attempts = models.IntegerField(default=0)
-    last_attempt = models.DateTimeField(auto_now=True)
-    blocked_until = models.DateTimeField(null=True, blank=True)
-
-    def is_blocked(self):
-        if self.blocked_until and timezone.now() < self.blocked_until:
-            return True
-        return False
-
-    def register_failed_attempt(self):
-        self.attempts += 1
-        self.last_attempt = timezone.now()
-
-        if self.attempts >= 3:
-            self.blocked_until = timezone.now() + timedelta(hours=1)
-            self.attempts = 0  # reset after blocking
-
-        self.save()
-
-    def reset_attempts(self):
-        self.attempts = 0
-        self.blocked_until = None
-        self.save()
