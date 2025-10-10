@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # ✅ Debug বন্ধ রাখো Production-এ
-DEBUG = False
+DEBUG = True
 
 # -----------------------------
 # ✅ HTTPS / SSL SECURITY
