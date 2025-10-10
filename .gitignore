@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.env
+
+# Virtual Environment
+venv/
+env/
+security_env/
+
+# Django DB file (if you don't want to upload)
+db.sqlite3
+
+# Django Secrets
+.env
+
+# IDE/editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Static/media (optional)
+# staticfiles/
+media/

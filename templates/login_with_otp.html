@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %} Login OTP - DJ Auth {% endblock title %}
+
+{% block content %}
+
+{% comment %} <form action="" method='POST'>
+    {% csrf_token %}
+    <h3><strong>Verify OTP</strong></h3>
+    <div class="mb-3">
+        <label class="form-label">OTP</label>
+        <input class="form-control" name="otp" placeholder="Enter OTP" required>
+      </div>
+
+      <button class="btn btn-primary" style="width:100%">Confirm</button>
+      <p>Need a new OTP? <a href="{% url 'resend_otp' %}">Resend OTP</a></p>
+
+</form> {% endcomment %}
+
+<div class="login-container">
+  <div class="login-card">
+    <form class="login-form" method="POST">
+      {% csrf_token %}
+      <h3><strong>Verify Login OTP</strong></h3>
+      <input class="form-control mt-3" type="number" name="otp" placeholder="Enter OTP" required>
+      <div class="login-buttons">
+        <button  class="single-auth-full-length-button" type="submit">Verify</button>
+        {% comment %} <a class="register-button" href="{% url 'signin' %}">Back</a> {% endcomment %}
+      </div>
+      <p class="mt-4">Need a new OTP? <a href="{% url 'resend_otp' %}">Resend OTP</a></p>
+    </form>
+  </div>
+</div>
+
+
+{% endblock content %}

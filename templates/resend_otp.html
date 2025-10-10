@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %} Resend OTP - DJ Auth {% endblock title %}
+
+{% block content %}
+
+{% comment %} <style>
+    form{
+        width: 500px;
+        height: auto;
+        padding: 20px 20px 20px 20px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        margin: 50px auto;
+        border-radius: 10px;
+    }
+    form p{
+        text-align: center;
+    }
+
+    form h3{
+        text-align: center
+    }
+</style> {% endcomment %}
+
+
+    {% comment %} <form action="" method='POST'>
+        {% csrf_token %}
+        <h3><strong>Resend OTP</strong></h3>
+        <div class="mb-3">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-control" name="otp_email" placeholder="Enter email-address" required>
+          </div>
+
+          <button class="btn btn-primary" style="width:100%" type="submit">Send OTP</button>
+          <p>Need a new account? <a href="{% url "signup" %}">Register</a>  OR  login? <a href="{% url "signin" %}">Login</a></p>
+
+    </form> {% endcomment %}
+
+<div class="login-container">
+  <div class="login-card">
+    <form class="login-form" method="POST">
+      {% csrf_token %}
+      <h3><strong>Resend OTP</strong></h3>
+      <input class="form-control mt-3" type="email" name="otp_email" placeholder="Enter your email" required>
+      <div class="login-buttons">
+        <button  class="single-auth-full-length-button" type="submit">Send OTP</button>
+        {% comment %} <a class="register-button" href="{% url 'signin' %}">Back</a> {% endcomment %}
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock content %}

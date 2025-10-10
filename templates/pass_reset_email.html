@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Your OTP Code</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f5f7fa; padding: 40px;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+    <tr>
+      <td style="padding: 30px 40px;">
+        <h2 style="margin: 0 0 10px; color: #333333;">Hello {{ username }},</h2>
+        <p style="font-size: 18px; color: #555555;">Click below to reset your password:</p>
+        <center>
+         <a href="{{reset_link}}"  style="font-size: 16px; padding: 10px 20px; background: #007bff; border: 1px solid #007bff; border-radius:10px; color:#ffffff; border: none; cursor: pointer; text-decoration: none; transition: background 0.3s ease-in-out, border 0.3s ease-in-out; margin: 30px auto; text-align: center; ">RESET</a>
+        </center>
+        <p style="font-size: 16px; color: #777777;">This link will expire in 2 minutes.</p>
+        <br>
+        <p style="font-size: 16px; color: #555;">Thanks,<br>Admin</p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
