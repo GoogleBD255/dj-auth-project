@@ -25,30 +25,30 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # ✅ Debug বন্ধ রাখো Production-এ
-DEBUG = True
+DEBUG = False
 
 # -----------------------------
 # ✅ HTTPS / SSL SECURITY
 # -----------------------------
-# SECURE_SSL_REDIRECT = True                    # সবসময় HTTPS এ redirect করবে
-# SESSION_COOKIE_SECURE = True                  # Cookie কেবল HTTPS এ পাঠাবে
-# CSRF_COOKIE_SECURE = True                     # CSRF Cookie কেবল HTTPS এ পাঠাবে
-# SECURE_REFERRER_POLICY = "strict-origin"      # Referrer Policy
-# SECURE_CONTENT_TYPE_NOSNIFF = True            # Prevent MIME-type sniffing
-# SECURE_BROWSER_XSS_FILTER = True              # XSS Filter
-# X_FRAME_OPTIONS = 'DENY'                      # Clickjacking protection
+SECURE_SSL_REDIRECT = True                    # সবসময় HTTPS এ redirect করবে
+SESSION_COOKIE_SECURE = True                  # Cookie কেবল HTTPS এ পাঠাবে
+CSRF_COOKIE_SECURE = True                     # CSRF Cookie কেবল HTTPS এ পাঠাবে
+SECURE_REFERRER_POLICY = "strict-origin"      # Referrer Policy
+SECURE_CONTENT_TYPE_NOSNIFF = True            # Prevent MIME-type sniffing
+SECURE_BROWSER_XSS_FILTER = True              # XSS Filter
+X_FRAME_OPTIONS = 'DENY'                      # Clickjacking protection
 
 # # -----------------------------
 # # ✅ COOKIES SETTINGS
 # # -----------------------------
-# SESSION_COOKIE_HTTPONLY = True                # Cookie client-side JS দিয়ে access করা যাবে না
-# SESSION_COOKIE_SAMESITE = 'Strict'            # Cross-site cookie protection
-# CSRF_COOKIE_HTTPONLY = True
-# CSRF_COOKIE_SAMESITE = 'Strict'
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-# SECURE_HSTS_SECONDS = 31536000
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# SECURE_HSTS_PRELOAD = True
+SESSION_COOKIE_HTTPONLY = True                # Cookie client-side JS দিয়ে access করা যাবে না
+SESSION_COOKIE_SAMESITE = 'Strict'            # Cross-site cookie protection
+CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SAMESITE = 'Strict'
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
 
 
 
@@ -109,11 +109,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': dj_database_url.config(default=os.getenv('DB_URL'), ssl_require=True)
-    'default':{
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': dj_database_url.config(default=os.getenv('DB_URL'), ssl_require=True)
+    # 'default':{
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
 }
 
 
@@ -164,8 +164,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]  # where original static lives
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')    # collectstatic output
+#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]  # where original static lives
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')    # collectstatic output
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
