@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # ✅ Debug বন্ধ রাখো Production-এ
-DEBUG = False
+DEBUG = True
 
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
@@ -33,8 +33,8 @@ SESSION_COOKIE_SAMESITE = 'Lax'  # 'Strict' দিলে কিছু redirect �
 CSRF_COOKIE_SECURE = True
 # CSRF_COOKIE_HTTPONLY = False  # এটা True দিলে AJAX কাজ করবে না, তাই False রাখো
 CSRF_COOKIE_SAMESITE = 'Lax'
-SECURE_SSL_REDIRECT = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SECURE_SSL_REDIRECT = True
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
