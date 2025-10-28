@@ -27,28 +27,22 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # ✅ Debug বন্ধ রাখো Production-এ
 DEBUG = False
 
-# -----------------------------
-# ✅ HTTPS / SSL SECURITY
-# -----------------------------
-SECURE_SSL_REDIRECT = True                    # সবসময় HTTPS এ redirect করবে
-SESSION_COOKIE_SECURE = True                  # Cookie কেবল HTTPS এ পাঠাবে
-CSRF_COOKIE_SECURE = True                     # CSRF Cookie কেবল HTTPS এ পাঠাবে
-SECURE_REFERRER_POLICY = "strict-origin"      # Referrer Policy
-SECURE_CONTENT_TYPE_NOSNIFF = True            # Prevent MIME-type sniffing
-SECURE_BROWSER_XSS_FILTER = True              # XSS Filter
-X_FRAME_OPTIONS = 'DENY'                      # Clickjacking protection
-
-# # -----------------------------
-# # ✅ COOKIES SETTINGS
-# # -----------------------------
-SESSION_COOKIE_HTTPONLY = True                # Cookie client-side JS দিয়ে access করা যাবে না
-SESSION_COOKIE_SAMESITE = 'Strict'            # Cross-site cookie protection
-CSRF_COOKIE_HTTPONLY = True
-CSRF_COOKIE_SAMESITE = 'Strict'
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'  # 'Strict' দিলে কিছু redirect ভাঙতে পারে
+CSRF_COOKIE_SECURE = True
+# CSRF_COOKIE_HTTPONLY = False  # এটা True দিলে AJAX কাজ করবে না, তাই False রাখো
+CSRF_COOKIE_SAMESITE = 'Lax'
+SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_HSTS_SECONDS = 31536000
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_REFERRER_POLICY = "strict-origin"
+SECURE_HSTS_SECONDS = 3600              # প্রথমে ১ ঘণ্টা রাখো
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_PRELOAD = False             # পরে চাওলে True দিও, আগে টেস্ট করে নাও
+
 
 
 
