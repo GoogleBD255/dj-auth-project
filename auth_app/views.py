@@ -8,6 +8,7 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 import random
+import re
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.conf import settings
@@ -18,11 +19,58 @@ from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponse
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
+from django.contrib.admin.models import LogEntry
+from django.contrib.admin.sites import site
 
 # Create your views here.
 
 
 
+
+
+def admin_login(request):
+    if request.user.is_authenticated == False:
+        if request.method == 'POST':
+            email = request.POST['email']
+            password = request.POST['password']
+
+            user = authenticate(request, username=email, password=password)
+            if user is not None and user.is_staff:
+                request.session['admin_logging'] = True
+                request.session['admin_user'] = user.username
+                messages.success(request, "Admin identity approved, now enter the key to access your dashboard")
+                return redirect("key_verify")
+            else:
+                messages.error(request, "You are not admin!")
+                return redirect("admin_login")
+        return render(request, "admin_login.html")
+    else:
+        messages.warning(request, "You are already in session!")
+        return redirect("admin:index")
+
+    
+def key_verify(request):
+    if request.session.get('admin_logging'):
+        username = request.session.get('admin_user')
+        user = get_object_or_404(User, username=username)
+        if request.method == 'POST':
+            key = request.POST['key']
+            if key == "admin123" and user.is_staff:
+                login(request, user)
+                request.session.pop('admin_logging', None)
+                request.session.cycle_key()
+                messages.success(request, "Admin logged-in successfully")
+                return redirect('admin:index')
+            else:
+                messages.error(request, "You are not Admin or wrong key!")
+                return redirect('key_verify')
+    
+        return render(request, "key_verify.html")
+    else:
+        return redirect('admin_login')
 
 def get_client_ip(request):
     # নিরাপদভাবে IP বের করা
@@ -42,10 +90,14 @@ def home(request):
     return render(request, "home.html", context)
 
 
+
+
 def signup(request):
     if request.user.is_authenticated == False:
         
         if request.method == "POST":
+
+            emailRegex = r'^[a-zA-Z0-9._%+-]+@gmail+\.com$'
 
             email = request.POST['email']
             username = request.POST['username']
@@ -59,6 +111,7 @@ def signup(request):
             elif User.objects.filter(username=username).exists():
                 messages.error(request, "Username alredy taken!")
                 return render(request, "signup.html")
+            
             
             elif password1 != password2:
                 messages.error(request, "Passwords do not match!")
@@ -118,6 +171,9 @@ def verify_otp(request, username):
         user = User.objects.get(username=username)
         otp = OTP.objects.filter(user=user).last()
         
+        if user.is_active:
+            messages.warning(request, "You are alredy verified, put otp to login!")
+            return redirect("login_with_otp", username=username)
         
         if request.method == 'POST':
             # valid token
@@ -125,16 +181,11 @@ def verify_otp(request, username):
                 
                 # checking for expired token
                 if otp.otp_expire > timezone.now():
-                    if user.is_active == False:
-                        user.is_active=True
-                        user.save()
-                        otp.delete()
-                        messages.success(request, f"Account verified successfully, Now login")
-                        return redirect("signin")
-                    else:
-                        messages.warning(request, f"You are alredy verified, put otp to login")
-                        return redirect("login_with_otp", username=username)
-
+                    user.is_active=True
+                    user.save()
+                    otp.delete()
+                    messages.success(request, f"Account verified successfully, Now login")
+                    return redirect("signin")
                 else:
                     messages.error(request, f"Your OTP is no longer valid!")
                     return redirect("verify_otp", username=username)
@@ -359,6 +410,7 @@ def login_with_otp(request, username):
                     user = get_object_or_404(User, username=user.username)    
                     login(request, user)
                     otp.delete()
+                    request.session['session_expirey'] = timezone.now().timestamp()
                     messages.success(request, f"Hi {user.username}, you are now logged-in")
                     return redirect("home")
                 else:

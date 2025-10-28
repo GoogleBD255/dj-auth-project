@@ -17,20 +17,43 @@
 
 </form> {% endcomment %}
 
+
+
 <div class="login-container">
   <div class="login-card">
-    <form class="login-form" method="POST">
-      {% csrf_token %}
-      <h3><strong>Verify Login OTP</strong></h3>
-      <input class="form-control mt-3" type="number" name="otp" placeholder="Enter OTP" required>
-      <div class="login-buttons">
-        <button  class="single-auth-full-length-button" type="submit">Verify</button>
-        {% comment %} <a class="register-button" href="{% url 'signin' %}">Back</a> {% endcomment %}
-      </div>
-      <p class="mt-4">Need a new OTP? <a href="{% url 'resend_otp' %}">Resend OTP</a></p>
+    <div class="login-header">
+        <h2>Login OTP Verify</h2>
+        <p>Please verify your login attempt by entering OTP</p>
+    </div>
+    <form method="POST" class="login-form" id="loginForm">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="input-wrapper">
+                <input type="text" id="email" name="otp" required>
+                <label for="email">Enter the OTP</label>
+                <div class="input-line"></div>
+                <div class="ripple-container"></div>
+            </div>
+            <span class="error-message" id="emailError"></span>
+        </div>
+        <div class="">
+            <button type="submit" class="login-btn material-btn">
+              <div class="btn-ripple"></div>
+              <span class="btn-text">VERIFY</span>
+            </button>
+        </div>
+        <p style="color: #757575;">Need a new OTP? <a href="{% url "resend_otp" %}" class="forgot-password">Resend OTP</a></p>
+        
     </form>
   </div>
 </div>
+
+
+
+
+
+
+
 
 
 {% endblock content %}

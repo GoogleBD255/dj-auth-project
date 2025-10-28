@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %} Key Verify- DJ Auth {% endblock title %}
+
+{% block content %}
+
+
+
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+        <h2>Secret Key Verify</h2>
+        <p>Please verify your secret key to access admin dashboard</p>
+    </div>
+    <form method="POST" class="login-form" id="loginForm">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="input-wrapper">
+                <input type="text" id="email" name="key" required>
+                <label for="email">Enter the key</label>
+                <div class="input-line"></div>
+                <div class="ripple-container"></div>
+            </div>
+            <span class="error-message" id="emailError"></span>
+        </div>
+        <div class="">
+            <button type="submit" class="login-btn material-btn">
+              <div class="btn-ripple"></div>
+              <span class="btn-text">Verify</span>
+            </button>
+        </div>
+        
+    </form>
+  </div>
+</div>
+
+
+
+
+
+{% endblock content %}

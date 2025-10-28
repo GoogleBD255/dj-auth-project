@@ -6,8 +6,8 @@
 
 {% if user.is_authenticated %}
 
-<h1>{{user.username}}</h1>
-<h1>{{user.email}}</h1>
+<h1 style="color: white">Username: {{user.username}} // Email: {{user.email}}</h1>
+
 <a class="btn btn-primary" href="{% url "signout" %}">Logout</a>
 
 <a class="btn btn-secondary" href="{% url "change_pass" %}">Change Password</a>

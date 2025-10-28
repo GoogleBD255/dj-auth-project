@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %} Sign In - DJ Auth {% endblock title %}
+
+{% block content%}
+
+{% load static %}
+
+
+<div class="sub_container">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="material-logo">
+                    <img src="{% static 'image/django_logo.png' %}" alt="dj_logo" width="50" height="60">
+                </div>
+                <h2>Administration</h2>
+            </div>
+            
+            <form action="{% url "admin_login" %}" method="POST" class="login-form" id="loginForm">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <input type="email" id="email" name="email" required>
+                        <label for="email">Email</label>
+                        <div class="input-line"></div>
+                        <div class="ripple-container"></div>
+                    </div>
+                    <span class="error-message" id="emailError"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-wrapper password-wrapper">
+                        <input type="password" id="password1" name="password" required>
+                        <label for="password1">Password</label>
+                        <div class="input-line"></div>
+                        <button type="button" class="password-toggle" id="passwordToggle1" aria-label="Toggle password visibility">
+                            <div class="toggle-ripple"></div>
+                            <span class="toggle-icon"></span>
+                        </button>
+                        <div class="ripple-container"></div>
+                    </div>
+                    <span class="error-message" id="passwordError"></span>
+                    
+                </div>
+
+                
+                <input type="hidden" name="next" value="{{ next }}">
+
+                <button type="submit" class="login-btn material-btn">
+                    <div class="btn-ripple"></div>
+                    <span class="btn-text">SIGN IN</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+{% endblock content %}

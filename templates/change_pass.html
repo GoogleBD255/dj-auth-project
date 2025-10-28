@@ -4,7 +4,7 @@
 
 {% block content%}
 
-<div class="login-container">
+{% comment %} <div class="login-container">
   <div class="login-card">
     <form class="login-form" method="POST">
       {% csrf_token %}
@@ -18,6 +18,76 @@
     </form>
     
   </div>
+</div> {% endcomment %}
+
+
+
+<div class="sub_container">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h2>Change Password</h2>
+                <p>to more secure your account</p>
+            </div>
+            
+            <form method="POST" class="login-form" id="loginForm">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <div class="input-wrapper password-wrapper">
+                        <input type="password" id="password1" name="old_password" required>
+                        <label for="password1">Old Password</label>
+                        <div class="input-line"></div>
+                        <button type="button" class="password-toggle" id="passwordToggle1" aria-label="Toggle password visibility">
+                            <div class="toggle-ripple"></div>
+                            <span class="toggle-icon"></span>
+                        </button>
+                        <div class="ripple-container"></div>
+                    </div>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+                <div class="form-group">
+                    <div class="input-wrapper password-wrapper">
+                        <input type="password" id="password2" name="new_password" required>
+                        <label for="password2">New Password</label>
+                        <div class="input-line"></div>
+                        <button type="button" class="password-toggle" id="passwordToggle2" aria-label="Toggle password visibility">
+                            <div class="toggle-ripple"></div>
+                            <span class="toggle-icon"></span>
+                        </button>
+                        <div class="ripple-container"></div>
+                    </div>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+                <div class="form-group">
+                    <div class="input-wrapper password-wrapper">
+                        <input type="password" id="password3" name="new_password2" required>
+                        <label for="password3">Re-type Password</label>
+                        <div class="input-line"></div>
+                        <button type="button" class="password-toggle" id="passwordToggle3" aria-label="Toggle password visibility">
+                            <div class="toggle-ripple"></div>
+                            <span class="toggle-icon"></span>
+                        </button>
+                        <div class="ripple-container"></div>
+                    </div>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+
+                <button type="submit" class="login-btn material-btn">
+                    <div class="btn-ripple"></div>
+                    <span class="btn-text">CHANGE</span>
+                </button>
+            </form>
+        </div>
+    </div>
 </div>
+
+
+
+
+
+
+
+
 
 {% endblock content %}
