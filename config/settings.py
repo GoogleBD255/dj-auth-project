@@ -46,7 +46,7 @@ DEBUG = False
 
 
 
-ALLOWED_HOSTS = ['django-auth-project-k8x3.onrender.com, *.onrender.com, 127.0.0.1:8000']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
