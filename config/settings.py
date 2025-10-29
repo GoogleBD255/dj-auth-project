@@ -31,17 +31,11 @@ SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = 'Lax'  # 'Strict' দিলে কিছু redirect ভাঙতে পারে
 CSRF_COOKIE_SECURE = True
-<<<<<<< HEAD
-# # CSRF_COOKIE_HTTPONLY = False  # এটা True দিলে AJAX কাজ করবে না, তাই False রাখো
+# CSRF_COOKIE_HTTPONLY = False  # এটা True দিলে AJAX কাজ করবে না, তাই False রাখো
 CSRF_COOKIE_SAMESITE = 'Lax'
 SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-=======
-#CSRF_COOKIE_HTTPONLY = False  # এটা True দিলে AJAX কাজ করবে না, তাই False রাখো
 CSRF_COOKIE_SAMESITE = 'Lax'
-# SECURE_SSL_REDIRECT = True
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
->>>>>>> eaf7757e78cbebe90ba862ed8c326e210bcac6b5
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
