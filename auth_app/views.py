@@ -201,7 +201,7 @@ def signin(request):
             else:
                 messages.error(request, "Email or password may be wrong!")
                 return render(request, "signin.html")
-        else:
+        elif not user.is_active:
             # send verification OTP if not active
             otp = OTP.objects.create(
                 user=user,
@@ -218,7 +218,9 @@ def signin(request):
             email_msg.send()
             messages.success(request, "Please check your email and verify.")
             return redirect("verify_otp", username=user.username)
-
+        else:
+            messages.error(request, "Somsthing went wrong, Please try again.")
+            return redirect("signin")
     return render(request, "signin.html")
 
 
